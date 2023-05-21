@@ -1,0 +1,235 @@
+@startuml
+hide empty members
+set namespaceSeparator none
+
+interface "/api/categories" {
+}
+
+class "GET /api/categories" {
+
+.. responses ..
+200: {field} api.CategoriesResponse 
+}
+
+"GET /api/categories" ..> api.CategoriesResponse
+
+"/api/categories" ..> "GET /api/categories"
+
+
+
+interface "/api/category/create" {
+}
+
+class "POST /api/category/create" {
+.. body ..
+{field} category_service.CategoryDTO <b>request</b>
+.. responses ..
+200: {field} api.BaseResponse 
+}
+
+"POST /api/category/create" ..> api.BaseResponse
+"POST /api/category/create" ..> category_service.CategoryDTO
+
+"/api/category/create" ..> "POST /api/category/create"
+
+
+
+interface "/api/category/delete/{category}" {
+}
+
+class "DELETE /api/category/delete/{category}" {
+.. path ..
+{field} string <b>category</b>
+.. responses ..
+200: {field} api.BaseResponse 
+}
+
+"DELETE /api/category/delete/{category}" ..> api.BaseResponse
+
+"/api/category/delete/{category}" ..> "DELETE /api/category/delete/{category}"
+
+
+
+interface "/api/category/{category}/products" {
+}
+
+class "GET /api/category/{category}/products" {
+.. path ..
+{field} string <b>category</b>
+.. responses ..
+200: {field} api.ProductsResponse 
+}
+
+"GET /api/category/{category}/products" ..> api.ProductsResponse
+
+"/api/category/{category}/products" ..> "GET /api/category/{category}/products"
+
+
+
+interface "/api/product/create/" {
+}
+
+class "POST /api/product/create/" {
+.. body ..
+{field} product_service.ProductDTO <b>request</b>
+.. responses ..
+200: {field} api.BaseResponse 
+}
+
+"POST /api/product/create/" ..> api.BaseResponse
+"POST /api/product/create/" ..> product_service.ProductDTO
+
+"/api/product/create/" ..> "POST /api/product/create/"
+
+
+
+interface "/api/product/delete/{name}" {
+}
+
+class "DELETE /api/product/delete/{name}" {
+.. path ..
+{field} string <b>name</b>
+.. responses ..
+200: {field} api.BaseResponse 
+}
+
+"DELETE /api/product/delete/{name}" ..> api.BaseResponse
+
+"/api/product/delete/{name}" ..> "DELETE /api/product/delete/{name}"
+
+
+
+interface "/api/product/{name}" {
+}
+
+class "GET /api/product/{name}" {
+.. path ..
+{field} string <b>name</b>
+.. responses ..
+200: {field} api.ProductResponse 
+}
+
+"GET /api/product/{name}" ..> api.ProductResponse
+
+"/api/product/{name}" ..> "GET /api/product/{name}"
+
+
+
+interface "/api/products" {
+}
+
+class "GET /api/products" {
+
+.. responses ..
+200: {field} api.ProductsResponse 
+}
+
+"GET /api/products" ..> api.ProductsResponse
+
+"/api/products" ..> "GET /api/products"
+
+
+
+interface "/api/request/create" {
+}
+
+class "POST /api/request/create" {
+.. body ..
+{field} order_service.Request <b>request</b>
+.. responses ..
+200: {field} api.BaseResponse 
+}
+
+"POST /api/request/create" ..> api.BaseResponse
+"POST /api/request/create" ..> order_service.Request
+
+"/api/request/create" ..> "POST /api/request/create"
+
+
+
+interface "/api/requests" {
+}
+
+class "GET /api/requests" {
+
+.. responses ..
+200: {field} api.BaseResponse 
+}
+
+"GET /api/requests" ..> api.BaseResponse
+
+"/api/requests" ..> "GET /api/requests"
+
+
+class api.BaseResponse {
+    {field} string status
+}
+
+
+
+class api.CategoriesResponse {
+    {field} category_service.Category[] categories
+    {field} string status
+}
+
+api.CategoriesResponse ..> category_service.Category
+
+
+class api.ProductResponse {
+    {field} product_service.UserProduct product
+    {field} string status
+}
+
+api.ProductResponse ..> product_service.UserProduct
+
+
+class api.ProductsResponse {
+    {field} product_service.UserProduct[] products
+    {field} string status
+}
+
+api.ProductsResponse ..> product_service.UserProduct
+
+
+class category_service.Category {
+    {field} string api_name
+    {field} integer id
+    {field} string name
+}
+
+
+
+class category_service.CategoryDTO {
+    {field} string api_name
+    {field} string name
+}
+
+
+
+class order_service.Request {
+    {field} string information
+    {field} string phone
+}
+
+
+
+class product_service.ProductDTO {
+    {field} string api_name
+    {field} string description
+    {field} string image
+    {field} string name
+    {field} integer price
+}
+
+
+
+class product_service.UserProduct {
+    {field} string api_name
+    {field} string description
+    {field} string image
+    {field} string name
+    {field} integer price
+}
+
+
+@enduml

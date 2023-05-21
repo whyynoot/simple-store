@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Продукт {{ .Name }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container bg-success">
+    <div>
+            <div class="header" style="text-align:center;">
+                <h2>{{ .Name }}</h2>
+            </div>
+    </div>
+    <div class="row justify-content-center text-center">
+
+        <div class="card" style="margin-top: 50px; width: 40%">
+            <img class="card-img-top" src="/image/{{.Image}}" alt="картинка">
+            <div class="card-body">
+            <div class="bg-info"></div>
+                <p class="card-text"> {{ .Description }}</p>
+                <a class="btn btn-success stretched-link">Купить за {{ .Price}} рублей</a>
+            </div>
+        </div>
+    </div>
+
+    </div>
+</div>
+</body>
+</html>

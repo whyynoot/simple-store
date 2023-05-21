@@ -1,0 +1,230 @@
+basePath: /
+definitions:
+  api.BaseResponse:
+    properties:
+      status:
+        type: string
+    type: object
+  api.CategoriesResponse:
+    properties:
+      categories:
+        items:
+          $ref: '#/definitions/category_service.Category'
+        type: array
+      status:
+        type: string
+    type: object
+  api.ProductResponse:
+    properties:
+      product:
+        $ref: '#/definitions/product_service.UserProduct'
+      status:
+        type: string
+    type: object
+  api.ProductsResponse:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/product_service.UserProduct'
+        type: array
+      status:
+        type: string
+    type: object
+  category_service.Category:
+    properties:
+      api_name:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  category_service.CategoryDTO:
+    properties:
+      api_name:
+        type: string
+      name:
+        type: string
+    type: object
+  order_service.Request:
+    properties:
+      information:
+        type: string
+      phone:
+        type: string
+    type: object
+  product_service.ProductDTO:
+    properties:
+      api_name:
+        type: string
+      description:
+        type: string
+      image:
+        type: string
+      name:
+        type: string
+      price:
+        type: integer
+    type: object
+  product_service.UserProduct:
+    properties:
+      api_name:
+        type: string
+      description:
+        type: string
+      image:
+        type: string
+      name:
+        type: string
+      price:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /api/categories:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.CategoriesResponse'
+      summary: Getting all categories
+      tags:
+      - Category
+  /api/category/{category}/products:
+    get:
+      parameters:
+      - description: category
+        in: path
+        name: category
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ProductsResponse'
+      summary: Get products for category
+      tags:
+      - Category
+  /api/category/create:
+    post:
+      parameters:
+      - description: category dto
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/category_service.CategoryDTO'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.BaseResponse'
+      summary: Create category by body
+      tags:
+      - Category
+  /api/category/delete/{category}:
+    delete:
+      parameters:
+      - description: category
+        in: path
+        name: category
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.BaseResponse'
+      summary: delete category by name
+      tags:
+      - Category
+  /api/product/{name}:
+    get:
+      parameters:
+      - description: name
+        in: path
+        name: name
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ProductResponse'
+      summary: Getting product info
+      tags:
+      - Product
+  /api/product/create/:
+    post:
+      parameters:
+      - description: product parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/product_service.ProductDTO'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.BaseResponse'
+      summary: Creation of product
+      tags:
+      - Product
+  /api/product/delete/{name}:
+    delete:
+      parameters:
+      - description: name
+        in: path
+        name: name
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.BaseResponse'
+      summary: Deletion of product
+      tags:
+      - Product
+  /api/products:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ProductsResponse'
+      summary: Getting all products info
+      tags:
+      - Product
+  /api/request/create:
+    post:
+      parameters:
+      - description: request DTO
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/order_service.Request'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.BaseResponse'
+      summary: Creating new request
+      tags:
+      - Request
+  /api/requests:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.BaseResponse'
+      summary: Getting all requests
+      tags:
+      - Request
+swagger: "2.0"

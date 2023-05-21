@@ -1,0 +1,363 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "basePath": "/",
+    "paths": {
+        "/api/categories": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Getting all categories",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.CategoriesResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/category/create": {
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Create category by body",
+                "parameters": [
+                    {
+                        "description": "category dto",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/category_service.CategoryDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/category/delete/{category}": {
+            "delete": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "delete category by name",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "category",
+                        "name": "category",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/category/{category}/products": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Get products for category",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "category",
+                        "name": "category",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ProductsResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/product/create/": {
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Creation of product",
+                "parameters": [
+                    {
+                        "description": "product parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/product_service.ProductDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/product/delete/{name}": {
+            "delete": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Deletion of product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/product/{name}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Getting product info",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ProductResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Getting all products info",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ProductsResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/request/create": {
+            "post": {
+                "tags": [
+                    "Request"
+                ],
+                "summary": "Creating new request",
+                "parameters": [
+                    {
+                        "description": "request DTO",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/order_service.Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/requests": {
+            "get": {
+                "tags": [
+                    "Request"
+                ],
+                "summary": "Getting all requests",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.BaseResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "api.BaseResponse": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.CategoriesResponse": {
+            "type": "object",
+            "properties": {
+                "categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/category_service.Category"
+                    }
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ProductResponse": {
+            "type": "object",
+            "properties": {
+                "product": {
+                    "$ref": "#/definitions/product_service.UserProduct"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ProductsResponse": {
+            "type": "object",
+            "properties": {
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/product_service.UserProduct"
+                    }
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "category_service.Category": {
+            "type": "object",
+            "properties": {
+                "api_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "category_service.CategoryDTO": {
+            "type": "object",
+            "properties": {
+                "api_name": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "order_service.Request": {
+            "type": "object",
+            "properties": {
+                "information": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                }
+            }
+        },
+        "product_service.ProductDTO": {
+            "type": "object",
+            "properties": {
+                "api_name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                }
+            }
+        },
+        "product_service.UserProduct": {
+            "type": "object",
+            "properties": {
+                "api_name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
